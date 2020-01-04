@@ -46,6 +46,6 @@ public class GameManager : MonoBehaviour
     {
         GameObject tempFire = Instantiate(firePrefab, transform);
         
-        Tilemap map = 
+//        Tilemap map = 
     }
 }
