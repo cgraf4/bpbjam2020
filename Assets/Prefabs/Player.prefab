@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1771306817937187265}
   - component: {fileID: 8612379046102055742}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4465787956378009995}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5506896079988722210}
@@ -67,12 +67,12 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 335083771
+  m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -521816326939231705, guid: 0bf86f642c288a6488980d4128add289,
+  m_Sprite: {fileID: -2498157891939216113, guid: 0bf86f642c288a6488980d4128add289,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7372549, g: 0.4823529, b: 0.3215686, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 892042130158499168}
   - component: {fileID: 8075167018915007669}
   - component: {fileID: 7819935262520991722}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,6 +186,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fd5256f98a1bb840bcddfa6e7a60bc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementMask:
+    serializedVersion: 2
+    m_Bits: 512
+  fireMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &5033427808805633690
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,7 +202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7063468184806130797}
   - component: {fileID: 7901007778687826743}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}

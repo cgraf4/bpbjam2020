@@ -2,15 +2,18 @@
 
 public class PlayerController : MonoBehaviour
 {
-    public LayerMask movementMask;
+    [SerializeField] private LayerMask movementMask;
+    [SerializeField] private LayerMask fireMask;
     private void OnEnable()
     {
-        InputManager.OnKeyPressed += Move;
+        InputManager.OnMovementKeyPressed += Move;
+        InputManager.OnInteractionKeyPressed += Extinguish;
     }
 
     private void OnDisable()
     {
-        InputManager.OnKeyPressed -= Move;
+        InputManager.OnMovementKeyPressed -= Move;
+        InputManager.OnInteractionKeyPressed -= Extinguish;
     }
 
     private void Move(string key)
@@ -19,19 +22,19 @@ public class PlayerController : MonoBehaviour
         Vector2 rayOrigin = transform.position+new Vector3(.5f, .5f, 0f);
         Vector2 rayDir = Vector2.zero;
         
-        if (key == Utils.MOVE_DOWN)
+        if (key == Utils.INPUT_DOWN)
         {
             rayDir = moveDir = Vector2.down;
         }
-        else if (key == Utils.MOVE_UP)
+        else if (key == Utils.INPUT_UP)
         {
             rayDir = moveDir = Vector2.up;
         }
-        else if (key == Utils.MOVE_LEFT)
+        else if (key == Utils.INPUT_LEFT)
         {
             rayDir = moveDir = Vector2.left;
         }
-        else if (key == Utils.MOVE_RIGHT)
+        else if (key == Utils.INPUT_RIGHT)
         {
             rayDir = moveDir = Vector2.right;
         }
@@ -47,4 +50,25 @@ public class PlayerController : MonoBehaviour
             Debug.Log(hitInfo.transform.name);
         
     }
+
+    private void Extinguish()
+    {
+        Vector2 rayOrigin = transform.position+new Vector3(.5f, .5f, 0f);
+
+        LookForFire(rayOrigin, Vector2.down, 1, fireMask);
+        LookForFire(rayOrigin, Vector2.up, 1, fireMask);
+        LookForFire(rayOrigin, Vector2.left, 1, fireMask);
+        LookForFire(rayOrigin, Vector2.right, 1, fireMask);
+    }
+
+    private void LookForFire(Vector2 origin, Vector2 dir, float distance, LayerMask mask)
+    {
+        RaycastHit2D hitInfo = Physics2D.Raycast(origin, dir, distance, mask);
+        
+        if (hitInfo.collider != null)
+            hitInfo.transform.GetComponent<Fire>().Decrease();
+        
+        Debug.DrawRay(origin, dir, Color.blue);
+    }
+    
 }
