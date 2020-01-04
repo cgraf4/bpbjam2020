@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
 //        Debug.Log("removed: " + pos);
 
         possibleFirePositions.Remove(pos);
-        Debug.Log("active fires:" + _activeFires + " | current stage: " +(currentStage) + " | val: " + gameplaySettings.Stages[currentStage]);
+//        Debug.Log("active fires:" + _activeFires + " | current stage: " +(currentStage) + " | val: " + gameplaySettings.Stages[currentStage]);
         if (++_activeFires >= gameplaySettings.Stages[currentStage])
         {
             if(currentStage<gameplaySettings.Stages.Length-1)

@@ -59,15 +59,15 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        Debug.DrawRay(_moveRayOrigin, _moveRayDir, Color.green);
+//        Debug.DrawRay(_moveRayOrigin, _moveRayDir, Color.green);
 
 
         RaycastHit2D hitInfo = Physics2D.Raycast(_moveRayOrigin, _moveRayDir, 1, movementMask);
         
         if(hitInfo.collider == null)
             transform.position += _moveDir;
-        else
-            Debug.Log(hitInfo.transform.name);
+//        else
+//            Debug.Log(hitInfo.transform.name);
         
     }
 
@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
         if (hitInfo.collider != null)
             hitInfo.transform.GetComponent<Fire>().Decrease();
         
-        Debug.DrawRay(origin, dir, Color.blue);
+//        Debug.DrawRay(origin, dir, Color.blue);
     }
     
 }
