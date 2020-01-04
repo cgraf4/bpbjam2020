@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
@@ -138,7 +140,7 @@ public class GameManager : MonoBehaviour
         possibleFirePositions.Add(pos);
         if (--_activeFires == 0 && rounds > gameplaySettings.RoundsUntilNewFire)
         {
-            OnGameWon();
+            StartCoroutine(WinGame());
         }
 
         if (_activeFires <= gameplaySettings.Stages[currentStage] && rounds > 0)
@@ -147,4 +149,17 @@ public class GameManager : MonoBehaviour
             OnStageDown(currentStage--);
         }
     }
+
+    private IEnumerator WinGame()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("Win");
+    }
+
+    private IEnumerator LoseGame()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("Lose");
+    }
+    
 }
