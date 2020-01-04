@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public GameplaySettings GameplaySettings => gameplaySettings;
 
     private int _activeFires = 0;
+    private PlayerController _player;
     
     public delegate void GameWonAction();
     public delegate void GameLostAction();
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         rounds = 0;
+        _player = FindObjectOfType<PlayerController>();
 
         InitFirePositions();
     }
@@ -75,8 +77,17 @@ public class GameManager : MonoBehaviour
         if (positions == 0)
             return;
         
-        var r = Random.Range(0, positions - 1);
-        var spawnPos = possibleFirePositions[r];
+        bool allowPosition = false;
+        var r = 0;
+        var spawnPos = Vector3.zero;
+
+        while (!allowPosition)
+        {
+            r = Random.Range(0, positions - 1);
+            spawnPos = possibleFirePositions[r];
+            allowPosition = spawnPos != _player.transform.position;
+        }
+
         RemovePossibleFirePosition(spawnPos);
         Instantiate(firePrefab, spawnPos, Quaternion.identity, transform);
     }

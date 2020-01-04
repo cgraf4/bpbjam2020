@@ -685,7 +685,7 @@ TextureImporter:
     second: monochrome_transparent_226
   - first:
       213: 1576355847306940942
-    second: monochrome_transparent_227
+    second: _regal_0
   - first:
       213: -4255223105374309649
     second: monochrome_transparent_228
@@ -748,7 +748,7 @@ TextureImporter:
     second: monochrome_transparent_247
   - first:
       213: -9150561726404111663
-    second: monochrome_transparent_248
+    second: _bird
   - first:
       213: 8169458536341476815
     second: monochrome_transparent_249
@@ -769,7 +769,7 @@ TextureImporter:
     second: _dog_0
   - first:
       213: -4785034126265053638
-    second: monochrome_transparent_255
+    second: _mirror
   - first:
       213: 2963223192135351900
     second: monochrome_transparent_256
@@ -907,10 +907,10 @@ TextureImporter:
     second: monochrome_transparent_300
   - first:
       213: -2908012172702769709
-    second: monochrome_transparent_301
+    second: _table_0
   - first:
       213: -8453690833116868668
-    second: monochrome_transparent_302
+    second: _table_1
   - first:
       213: 3578458728198753320
     second: monochrome_transparent_303
@@ -946,7 +946,7 @@ TextureImporter:
     second: monochrome_transparent_313
   - first:
       213: -5697431574750599984
-    second: monochrome_transparent_314
+    second: _hoodie
   - first:
       213: 5514341487146936540
     second: monochrome_transparent_315
@@ -1240,7 +1240,7 @@ TextureImporter:
     second: monochrome_transparent_411
   - first:
       213: 8148513409827883739
-    second: monochrome_transparent_412
+    second: _sun
   - first:
       213: 853569373648260008
     second: monochrome_transparent_413
@@ -1663,7 +1663,7 @@ TextureImporter:
     second: monochrome_transparent_552
   - first:
       213: -2975599233956461189
-    second: monochrome_transparent_553
+    second: _wall_1
   - first:
       213: -5587299102981429451
     second: monochrome_transparent_554
@@ -1675,7 +1675,7 @@ TextureImporter:
     second: monochrome_transparent_556
   - first:
       213: -3097876196839929440
-    second: monochrome_transparent_557
+    second: _window_1
   - first:
       213: 1902702272409726238
     second: monochrome_transparent_558
@@ -2710,7 +2710,7 @@ TextureImporter:
     second: monochrome_transparent_901
   - first:
       213: 5227595251224546765
-    second: monochrome_transparent_902
+    second: _saw
   - first:
       213: -2378152430481044229
     second: monochrome_transparent_903
@@ -2839,7 +2839,7 @@ TextureImporter:
     second: monochrome_transparent_944
   - first:
       213: 4953044020920068813
-    second: monochrome_transparent_945
+    second: _stone
   - first:
       213: 3141434374926961778
     second: __0
@@ -3120,7 +3120,7 @@ TextureImporter:
     mipBias: -100
     wrapU: 1
     wrapV: 1
-    wrapW: 0
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -7985,7 +7985,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: monochrome_transparent_227
+      name: _regal_0
       rect:
         serializedVersion: 2
         x: 68
@@ -8426,7 +8426,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: monochrome_transparent_248
+      name: _bird
       rect:
         serializedVersion: 2
         x: 425
@@ -8573,7 +8573,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: monochrome_transparent_255
+      name: _mirror
       rect:
         serializedVersion: 2
         x: 0
@@ -8723,7 +8723,7 @@ TextureImporter:
       name: _couch_1
       rect:
         serializedVersion: 2
-        x: 119
+        x: 118
         y: 391
         width: 16
         height: 16
@@ -9539,7 +9539,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: monochrome_transparent_301
+      name: _table_0
       rect:
         serializedVersion: 2
         x: 238
@@ -9560,7 +9560,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: monochrome_transparent_302
+      name: _table_1
       rect:
         serializedVersion: 2
         x: 255
@@ -9812,7 +9812,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: monochrome_transparent_314
+      name: _hoodie
       rect:
         serializedVersion: 2
         x: 459
@@ -11870,7 +11870,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: monochrome_transparent_412
+      name: _sun
       rect:
         serializedVersion: 2
         x: 493
@@ -14831,7 +14831,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: monochrome_transparent_553
+      name: _wall_1
       rect:
         serializedVersion: 2
         x: 170
@@ -14915,7 +14915,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: monochrome_transparent_557
+      name: _window_1
       rect:
         serializedVersion: 2
         x: 238
@@ -22160,7 +22160,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: monochrome_transparent_902
+      name: _saw
       rect:
         serializedVersion: 2
         x: 119
@@ -23063,7 +23063,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: monochrome_transparent_945
+      name: _stone
       rect:
         serializedVersion: 2
         x: 306

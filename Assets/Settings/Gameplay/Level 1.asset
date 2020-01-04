@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22abb3eb63e353c4b89b59b8c9348080, type: 3}
-  m_Name: Default Gameplay Settings
+  m_Name: Level 1
   m_EditorClassIdentifier: 
   roundsUntilNewFire: 6
   maxLife: 3
