@@ -6,15 +6,20 @@ using UnityEngine;
 public class FireSensor : MonoBehaviour
 {
     private PlayerController _player;
-    
-//    // Start is called before the first frame update
-//    void Start()
-//    {
-//        _player = GetComponentInParent<PlayerController>();
-//    }
-//
-//    private void OnTriggerEnter2D(Collider2D other)
-//    {
-//        _player.
-////    }
+    public GameObject particlePrefab;
+    private void OnEnable()
+    {
+        InputManager.Instance.OnInteractionKeyPressed += SpawnParticle;
+    }
+
+    private void OnDisable()
+    {
+        InputManager.Instance.OnInteractionKeyPressed -= SpawnParticle;
+
+    }
+
+    private void SpawnParticle()
+    {
+        Instantiate(particlePrefab, transform);
+    }
 }

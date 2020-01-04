@@ -23,15 +23,12 @@ public class GameManager : MonoBehaviour
     private PlayerController _player;
     private int currentStage = 0;
     
-    public delegate void GameWonAction();
-    public delegate void GameLostAction();
     public delegate void StageUpAction(int stage);
     public delegate void StageDownAction(int stage);
-
-    public event GameWonAction OnGameWon;
-    public event GameLostAction OnGameLost;
+    public delegate void SpawnFireAction();
     public event StageUpAction OnStageUp;
     public event StageDownAction OnStageDown;
+    public event SpawnFireAction OnFireSpawned;
 
 
     private void Awake()
@@ -41,7 +38,7 @@ public class GameManager : MonoBehaviour
         else if(Instance != this)
             Destroy(gameObject);
         
-        DontDestroyOnLoad(gameObject);
+//        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
@@ -99,6 +96,7 @@ public class GameManager : MonoBehaviour
 
         RemovePossibleFirePosition(spawnPos);
         Instantiate(firePrefab, spawnPos, Quaternion.identity, transform);
+        OnFireSpawned();
     }
 
     private void InitFirePositions()
@@ -125,10 +123,11 @@ public class GameManager : MonoBehaviour
 //        Debug.Log("removed: " + pos);
 
         possibleFirePositions.Remove(pos);
-        Debug.Log("active fires:" + _activeFires + " | current stage+1: " +(currentStage+1) + " | val: " + gameplaySettings.Stages[currentStage + 1]);
+        Debug.Log("active fires:" + _activeFires + " | current stage: " +(currentStage) + " | val: " + gameplaySettings.Stages[currentStage]);
         if (++_activeFires >= gameplaySettings.Stages[currentStage])
         {
-            OnStageUp(currentStage++);
+            if(currentStage<gameplaySettings.Stages.Length-1)
+                OnStageUp(currentStage++);
 //            currentStage++;
         }
     }
@@ -156,7 +155,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Win");
     }
 
-    private IEnumerator LoseGame()
+    public IEnumerator LoseGame()
     {
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("Lose");

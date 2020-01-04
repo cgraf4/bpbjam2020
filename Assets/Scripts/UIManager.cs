@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
         else if(_instance != this)
             Destroy(gameObject);
         
-        DontDestroyOnLoad(gameObject);
+//        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()

@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7760230440843456318}
+  - component: {fileID: 2061356198076120826}
   - component: {fileID: 762816048685267905}
   - component: {fileID: 1913921639}
-  - component: {fileID: 2061356198076120826}
   m_Layer: 8
   m_Name: Giesskanne
   m_TagString: Untagged
@@ -33,6 +33,20 @@ Transform:
   m_Father: {fileID: 5577276492821348567}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2061356198076120826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706591070114737987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 489e7d89da2ffb6488cc492ac593a459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particlePrefab: {fileID: 3359892699764737621, guid: 1f53e73b0fc741b4483bf702b6bfc2de,
+    type: 3}
 --- !u!212 &762816048685267905
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -110,18 +124,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2061356198076120826
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 706591070114737987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 489e7d89da2ffb6488cc492ac593a459, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4465787956378009995
 GameObject:
   m_ObjectHideFlags: 0
