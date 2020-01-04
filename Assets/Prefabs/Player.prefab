@@ -122,9 +122,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5506896079988722210}
+  - component: {fileID: 7819935262520991722}
   - component: {fileID: 892042130158499168}
   - component: {fileID: 8075167018915007669}
-  - component: {fileID: 7819935262520991722}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -148,6 +148,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7819935262520991722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4879461024614772016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd5256f98a1bb840bcddfa6e7a60bc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementMask:
+    serializedVersion: 2
+    m_Bits: 1536
+  fireMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!50 &892042130158499168
 Rigidbody2D:
   serializedVersion: 4
@@ -205,24 +223,6 @@ CompositeCollider2D:
       - {x: 0.000058600002, y: 0}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
---- !u!114 &7819935262520991722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4879461024614772016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fd5256f98a1bb840bcddfa6e7a60bc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementMask:
-    serializedVersion: 2
-    m_Bits: 512
-  fireMask:
-    serializedVersion: 2
-    m_Bits: 1024
 --- !u!1 &5033427808805633690
 GameObject:
   m_ObjectHideFlags: 0
