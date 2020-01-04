@@ -8,17 +8,22 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
+    
+    [FormerlySerializedAs("settings")] [SerializeField] private GameplaySettings gameplaySettings; 
     [SerializeField] private int rounds;
-    [SerializeField] private int roundsUntilNewFire;
     [SerializeField] private GameObject firePrefab;
     [SerializeField] private Tilemap wallTilemap;
-
     [SerializeField] private List<Vector3> possibleFirePositions;
-    
     public int Rounds => rounds;
+    public GameplaySettings GameplaySettings => gameplaySettings;
 
-    public int RoundsUntilNewFire => roundsUntilNewFire;
+    private int _activeFires = 0;
+    
+    public delegate void GameWonAction();
+    public delegate void GameLostAction();
+
+    public event GameWonAction OnGameWon;
+    public event GameLostAction OnGameLost;
 
     private void Awake()
     {
@@ -47,19 +52,19 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         InputManager.Instance.OnKeyPressed += IncreaseRounds;
-        Fire.OnFireKilled += AddFirePosition;
+        Fire.OnFireKilled += AddFirePossiblePosition;
     }
 
     private void OnDisable()
     {
         InputManager.Instance.OnKeyPressed -= IncreaseRounds;
-        Fire.OnFireKilled += AddFirePosition;
+        Fire.OnFireKilled += AddFirePossiblePosition;
 
     }
 
     private void IncreaseRounds()
     {
-        if(++rounds % RoundsUntilNewFire == 0)
+        if(++rounds % gameplaySettings.RoundsUntilNewFire == 0)
             SpawnFire();
     }
 
@@ -72,9 +77,8 @@ public class GameManager : MonoBehaviour
         
         var r = Random.Range(0, positions - 1);
         var spawnPos = possibleFirePositions[r];
-        RemoveFirePosition(spawnPos);
-        var tempFire = Instantiate(firePrefab, spawnPos, Quaternion.identity, transform);
-        
+        RemovePossibleFirePosition(spawnPos);
+        Instantiate(firePrefab, spawnPos, Quaternion.identity, transform);
     }
 
     private void InitFirePositions()
@@ -89,18 +93,26 @@ public class GameManager : MonoBehaviour
         {
             for (var j = cellBounds.yMin+1; j < cellBounds.yMax - 1; j++)
             {
-                possibleFirePositions.Add(new Vector3(i, j, 0));
+                AddFirePossiblePosition(new Vector3(i, j, 0));
             }
         }
     }
 
-    private void RemoveFirePosition(Vector3 pos)
+    private void RemovePossibleFirePosition(Vector3 pos)
     {
+//        Debug.Log("removed: " + pos);
+
         possibleFirePositions.Remove(pos);
+        ++_activeFires;
     }
 
-    private void AddFirePosition(Vector3 pos)
+    private void AddFirePossiblePosition(Vector3 pos)
     {
+//        Debug.Log("added: " + pos);
         possibleFirePositions.Add(pos);
+        if (--_activeFires == 0 && rounds > gameplaySettings.RoundsUntilNewFire)
+        {
+            OnGameWon();
+        }
     }
 }

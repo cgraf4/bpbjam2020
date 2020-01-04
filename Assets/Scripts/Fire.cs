@@ -5,9 +5,6 @@ public class Fire : MonoBehaviour
 {
     public delegate void KillFireAction(Vector3 pos);
     public static event KillFireAction OnFireKilled;
-    
-    [SerializeField] private int maxLife = 3;
-    [SerializeField] private float flickerInterval;
 
     private int _life = 1;
     private SpriteRenderer _spriteRenderer;
@@ -17,13 +14,13 @@ public class Fire : MonoBehaviour
     private void Start()
     {
         _firstChild = transform.GetChild(0);
-        _scale = 1/(float)maxLife;
+        _scale = 1 / (float) GameManager.Instance.GameplaySettings.MaxLife;
         _firstChild.localScale = new Vector3(_scale, _scale, 1);
 
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-
-        InvokeRepeating(nameof(Flicker), 0, flickerInterval);
-
+        
+        InvokeRepeating(nameof(Flicker), 0, GameManager.Instance.GameplaySettings.FlickerInterval);
+        
     }
     
     private void OnEnable()
@@ -43,7 +40,7 @@ public class Fire : MonoBehaviour
     
     public void Decrease()
     {
-        _scale = Math.Max(_scale - 1/(maxLife/2f), 0);
+        _scale = Math.Max(_scale - 1/(GameManager.Instance.GameplaySettings.MaxLife/2f), 0);
         _firstChild.localScale = new Vector3(_scale, _scale, 1);
 
         _life -= 2;
@@ -53,15 +50,16 @@ public class Fire : MonoBehaviour
     
     public void Increase()
     {
-        _scale = Math.Min(_scale + (1 / (float)maxLife), 1);
+        _scale = Math.Min(_scale + (1 / (float)GameManager.Instance.GameplaySettings.MaxLife), 1);
         _firstChild.localScale = new Vector3(_scale, _scale, 1);
         
-        if (_life < maxLife)
+        if (_life < GameManager.Instance.GameplaySettings.MaxLife)
             ++_life;
     }
 
     private void Kill()
     {
+        OnFireKilled(transform.position);
         Destroy(gameObject);
     }
 }

@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        _maxDots = GameManager.Instance.RoundsUntilNewFire;
+        _maxDots = GameManager.Instance.GameplaySettings.RoundsUntilNewFire;
         _dotImages = new GameObject[_maxDots];
         
         for (var i = 0; i < _maxDots; i++)
