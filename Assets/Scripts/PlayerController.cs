@@ -9,6 +9,13 @@ public class PlayerController : MonoBehaviour
     private Vector3 _initialScale;
     private Transform _firstChild;
 
+    private Vector3 _moveDir = Vector3.zero;
+
+    Vector2 _moveRayOrigin = Vector2.zero;
+    Vector2 _moveRayDir = Vector2.zero;
+    Vector2 _fireRayOrigin = Vector2.zero; 
+    Vector2 _fireRayDir = Vector2.zero;
+    
     private void Start()
     {
         _firstChild = transform.GetChild(0);
@@ -17,49 +24,48 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        InputManager.OnMovementKeyPressed += Move;
-        InputManager.OnInteractionKeyPressed += Extinguish;
+        InputManager.Instance.OnMovementKeyPressed += Move;
+        InputManager.Instance.OnInteractionKeyPressed += Extinguish;
     }
 
     private void OnDisable()
     {
-        InputManager.OnMovementKeyPressed -= Move;
-        InputManager.OnInteractionKeyPressed -= Extinguish;
+        InputManager.Instance.OnMovementKeyPressed -= Move;
+        InputManager.Instance.OnInteractionKeyPressed -= Extinguish;
     }
 
     private void Move(string key)
     {
-        Vector3 moveDir = Vector3.zero;
-        Vector2 rayOrigin = transform.position+new Vector3(.5f, .5f, 0f);
-        Vector2 rayDir = Vector2.zero;
+        _moveRayOrigin = transform.position+new Vector3(.5f, .5f, 0f);
+        _moveRayDir = Vector2.zero;
         
         if (key == Utils.INPUT_DOWN)
         {
-            rayDir = moveDir = Vector2.down;
+            _moveRayDir = _moveDir = Vector2.down;
         }
         else if (key == Utils.INPUT_UP)
         {
-            rayDir = moveDir = Vector2.up;
+            _moveRayDir = _moveDir = Vector2.up;
         }
         else if (key == Utils.INPUT_LEFT)
         {
-            rayDir = moveDir = Vector2.left;
+            _moveRayDir = _moveDir = _fireRayDir = Vector2.left;
             _firstChild.localScale = new Vector3(-_initialScale.x, _initialScale.y, _initialScale.z);
         }
         else if (key == Utils.INPUT_RIGHT)
         {
-            rayDir = moveDir = Vector2.right;
+            _moveRayDir = _moveDir = _fireRayDir =  Vector2.right;
             _firstChild.localScale = _initialScale;
 
         }
 
-        Debug.DrawRay(rayOrigin, rayDir, Color.green);
+        Debug.DrawRay(_moveRayOrigin, _moveRayDir, Color.green);
 
 
-        RaycastHit2D hitInfo = Physics2D.Raycast(rayOrigin, rayDir, 1, movementMask);
+        RaycastHit2D hitInfo = Physics2D.Raycast(_moveRayOrigin, _moveRayDir, 1, movementMask);
         
         if(hitInfo.collider == null)
-            transform.position += moveDir;
+            transform.position += _moveDir;
         else
             Debug.Log(hitInfo.transform.name);
         
@@ -67,12 +73,15 @@ public class PlayerController : MonoBehaviour
 
     private void Extinguish()
     {
-        Vector2 rayOrigin = transform.position+new Vector3(.5f, .5f, 0f);
+        Vector2 fireRayOrigin = transform.position+new Vector3(.5f, .5f, 0f);
 
-        LookForFire(rayOrigin, Vector2.down, 1, fireMask);
-        LookForFire(rayOrigin, Vector2.up, 1, fireMask);
-        LookForFire(rayOrigin, Vector2.left, 1, fireMask);
-        LookForFire(rayOrigin, Vector2.right, 1, fireMask);
+//        LookForFire(rayOrigin, Vector2.down, 1, fireMask);
+//        LookForFire(rayOrigin, Vector2.up, 1, fireMask);
+//        LookForFire(rayOrigin, Vector2.left, 1, fireMask);
+//        LookForFire(rayOrigin, Vector2.right, 1, fireMask);
+        
+//        if(_moveDir == Vector3.left || _moveDir == Vector3.right)
+            LookForFire(fireRayOrigin, _fireRayDir, 1, fireMask);
     }
 
     private void LookForFire(Vector2 origin, Vector2 dir, float distance, LayerMask mask)

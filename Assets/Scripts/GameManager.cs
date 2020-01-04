@@ -26,13 +26,59 @@ public class GameManager : MonoBehaviour
             Instance = this;
         else if(Instance != this)
             Destroy(gameObject);
+        
+        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         rounds = 0;
+
+        InitFirePositions();
+    }
+
+//    private void Update()
+//    {
+//        if(Input.GetKeyDown(KeyCode.F))
+//            SpawnFire();
+//    }
+
+    private void OnEnable()
+    {
+        InputManager.Instance.OnKeyPressed += IncreaseRounds;
+        Fire.OnFireKilled += AddFirePosition;
+    }
+
+    private void OnDisable()
+    {
+        InputManager.Instance.OnKeyPressed -= IncreaseRounds;
+        Fire.OnFireKilled += AddFirePosition;
+
+    }
+
+    private void IncreaseRounds()
+    {
+        if(++rounds % RoundsUntilNewFire == 0)
+            SpawnFire();
+    }
+
+    private void SpawnFire()
+    {
+        var positions = possibleFirePositions.Count;
+
+        if (positions == 0)
+            return;
         
+        var r = Random.Range(0, positions - 1);
+        var spawnPos = possibleFirePositions[r];
+        RemoveFirePosition(spawnPos);
+        var tempFire = Instantiate(firePrefab, spawnPos, Quaternion.identity, transform);
+        
+    }
+
+    private void InitFirePositions()
+    {
         wallTilemap.CompressBounds();
 
         var cellBounds = wallTilemap.cellBounds;
@@ -48,39 +94,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-//    private void Update()
-//    {
-//        if(Input.GetKeyDown(KeyCode.F))
-//            SpawnFire();
-//    }
-
-    private void OnEnable()
+    private void RemoveFirePosition(Vector3 pos)
     {
-        InputManager.OnMovementKeyPressed += IncreaseRounds;
+        possibleFirePositions.Remove(pos);
     }
 
-    private void OnDisable()
+    private void AddFirePosition(Vector3 pos)
     {
-        InputManager.OnMovementKeyPressed -= IncreaseRounds;
-    }
-
-    private void IncreaseRounds(string s)
-    {
-        if(++rounds % RoundsUntilNewFire == 0)
-            SpawnFire();
-    }
-
-    private void SpawnFire()
-    {
-        var positions = possibleFirePositions.Count;
-
-        if (positions == 0)
-            return;
-        
-        var r = Random.Range(0, positions - 1);
-        var spawnPos = possibleFirePositions[r];
-        possibleFirePositions.RemoveAt(r);
-        var tempFire = Instantiate(firePrefab, spawnPos, Quaternion.identity, transform);
-        
+        possibleFirePositions.Add(pos);
     }
 }

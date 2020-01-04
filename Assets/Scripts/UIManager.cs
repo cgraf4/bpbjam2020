@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
             _instance = this;
         else if(_instance != this)
             Destroy(gameObject);
+        
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
@@ -34,15 +36,15 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        InputManager.OnMovementKeyPressed += UpdateRoundCounter;
+        InputManager.Instance.OnKeyPressed += UpdateRoundCounter;
     }
 
     private void OnDisable()
     {
-        InputManager.OnMovementKeyPressed -= UpdateRoundCounter;
+        InputManager.Instance.OnKeyPressed -= UpdateRoundCounter;
     }
 
-    private void UpdateRoundCounter(string s)
+    private void UpdateRoundCounter()
     {
         var dotsToDisplay = GameManager.Instance.Rounds % _maxDots;
         
