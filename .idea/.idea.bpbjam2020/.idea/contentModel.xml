@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\Christoph\.Rider2019.2\system\extResources" t="IncludeRecursive" />
@@ -9,6 +9,7 @@
         <e p="Fire.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="EventManager.cs" t="Include" />
+          <e p="GameManager.cs" t="Include" />
           <e p="InputManager.cs" t="Include" />
           <e p="PlayerController.cs" t="Include" />
           <e p="Utils.cs" t="Include" />
@@ -41,6 +42,7 @@
             <e p="EmojiOne Attribution.txt" t="Include" />
           </e>
         </e>
+        <e p="UIManager.cs" t="Include" />
       </e>
       <e p="bpbjam2020.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />

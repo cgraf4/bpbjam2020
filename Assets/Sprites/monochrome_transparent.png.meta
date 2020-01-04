@@ -2875,7 +2875,7 @@ TextureImporter:
     second: monochrome_transparent_956
   - first:
       213: 5645637503947473599
-    second: monochrome_transparent_957
+    second: _dot
   - first:
       213: -4910468985253987826
     second: monochrome_transparent_958
@@ -23315,7 +23315,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: monochrome_transparent_957
+      name: _dot
       rect:
         serializedVersion: 2
         x: 510
