@@ -1,9 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private LayerMask movementMask;
     [SerializeField] private LayerMask fireMask;
+
+    private Vector3 _initialScale;
+    private Transform _firstChild;
+
+    private void Start()
+    {
+        _firstChild = transform.GetChild(0);
+        _initialScale = _firstChild.localScale;
+    }
+
     private void OnEnable()
     {
         InputManager.OnMovementKeyPressed += Move;
@@ -33,10 +44,13 @@ public class PlayerController : MonoBehaviour
         else if (key == Utils.INPUT_LEFT)
         {
             rayDir = moveDir = Vector2.left;
+            _firstChild.localScale = new Vector3(-_initialScale.x, _initialScale.y, _initialScale.z);
         }
         else if (key == Utils.INPUT_RIGHT)
         {
             rayDir = moveDir = Vector2.right;
+            _firstChild.localScale = _initialScale;
+
         }
 
         Debug.DrawRay(rayOrigin, rayDir, Color.green);

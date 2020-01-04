@@ -2443,7 +2443,7 @@ TextureImporter:
     second: monochrome_transparent_812
   - first:
       213: 1799736061292797709
-    second: monochrome_transparent_813
+    second: _giesskanne
   - first:
       213: 5575344906875632952
     second: monochrome_transparent_814
@@ -3073,7 +3073,7 @@ TextureImporter:
     second: monochrome_transparent_1022
   - first:
       213: -521816326939231705
-    second: monochrome_transparent_24
+    second: _char_0
   - first:
       213: -2498157891939216113
     second: monochrome_transparent_254
@@ -3722,7 +3722,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: monochrome_transparent_24
+      name: _char_0
       rect:
         serializedVersion: 2
         x: 425
@@ -20291,7 +20291,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: monochrome_transparent_813
+      name: _giesskanne
       rect:
         serializedVersion: 2
         x: 238

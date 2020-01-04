@@ -6,7 +6,7 @@ public class Fire : MonoBehaviour
 
     public void Decrease()
     {
-        transform.localScale -= Vector3.one/3;
+        transform.GetChild(0).localScale -= Vector3.one/3;
         if(--life <= 0)
             Kill();
     }
