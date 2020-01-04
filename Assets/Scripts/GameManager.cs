@@ -19,12 +19,18 @@ public class GameManager : MonoBehaviour
 
     private int _activeFires = 0;
     private PlayerController _player;
+    private int currentStage = 0;
     
     public delegate void GameWonAction();
     public delegate void GameLostAction();
+    public delegate void StageUpAction(int stage);
+    public delegate void StageDownAction(int stage);
 
     public event GameWonAction OnGameWon;
     public event GameLostAction OnGameLost;
+    public event StageUpAction OnStageUp;
+    public event StageDownAction OnStageDown;
+
 
     private void Awake()
     {
@@ -86,6 +92,7 @@ public class GameManager : MonoBehaviour
             r = Random.Range(0, positions - 1);
             spawnPos = possibleFirePositions[r];
             allowPosition = spawnPos != _player.transform.position;
+//            Debug.Log("spawnPos (" + spawnPos + ") player pos (" + _player.transform.position + ") ->" + allowPosition);
         }
 
         RemovePossibleFirePosition(spawnPos);
@@ -107,6 +114,8 @@ public class GameManager : MonoBehaviour
                 AddFirePossiblePosition(new Vector3(i, j, 0));
             }
         }
+
+        _activeFires = 0;
     }
 
     private void RemovePossibleFirePosition(Vector3 pos)
@@ -114,8 +123,14 @@ public class GameManager : MonoBehaviour
 //        Debug.Log("removed: " + pos);
 
         possibleFirePositions.Remove(pos);
-        ++_activeFires;
+        Debug.Log("active fires:" + _activeFires + " | current stage+1: " +(currentStage+1) + " | val: " + gameplaySettings.Stages[currentStage + 1]);
+        if (++_activeFires >= gameplaySettings.Stages[currentStage])
+        {
+            OnStageUp(currentStage++);
+//            currentStage++;
+        }
     }
+        
 
     private void AddFirePossiblePosition(Vector3 pos)
     {
@@ -124,6 +139,12 @@ public class GameManager : MonoBehaviour
         if (--_activeFires == 0 && rounds > gameplaySettings.RoundsUntilNewFire)
         {
             OnGameWon();
+        }
+
+        if (_activeFires <= gameplaySettings.Stages[currentStage] && rounds > 0)
+        {
+//            currentStage--;
+            OnStageDown(currentStage--);
         }
     }
 }

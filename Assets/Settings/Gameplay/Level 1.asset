@@ -15,3 +15,4 @@ MonoBehaviour:
   roundsUntilNewFire: 6
   maxLife: 3
   flickerInterval: 0.1
+  stages: 02000000050000000a0000000a000000

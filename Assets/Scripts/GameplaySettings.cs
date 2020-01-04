@@ -6,6 +6,15 @@ using UnityEngine;
 
 public class GameplaySettings : ScriptableObject
 {
+    [SerializeField] private int roundsUntilNewFire = 5;
+    [SerializeField] private int maxLife = 3;
+    [SerializeField] private float flickerInterval = .1f;
+    [SerializeField] private int[] stages;
+
+    public int[] Stages
+    {
+        get => stages;
+    }
     public int RoundsUntilNewFire
     {
         get => roundsUntilNewFire;
@@ -21,7 +30,5 @@ public class GameplaySettings : ScriptableObject
         get => flickerInterval;
     }
 
-    [SerializeField] private int roundsUntilNewFire = 5;
-    [SerializeField] private int maxLife = 3;
-    [SerializeField] private float flickerInterval = .1f;
+    
 }
