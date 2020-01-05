@@ -20,6 +20,9 @@ public class Fire : MonoBehaviour
 
     private void Start()
     {
+//        GameManager.Instance.RemovePossibleFirePosition(transform.position);
+        
+        
         _firstChild = transform.GetChild(0);
         _scale = 1 / (float) GameManager.Instance.GameplaySettings.FireMaxLife;
         _firstChild.localScale = new Vector3(_scale, _scale, 1);

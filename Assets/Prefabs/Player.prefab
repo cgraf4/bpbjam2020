@@ -208,6 +208,7 @@ MonoBehaviour:
   fireMask:
     serializedVersion: 2
     m_Bits: 1024
+  canMove: 0
 --- !u!50 &892042130158499168
 Rigidbody2D:
   serializedVersion: 4
@@ -393,7 +394,7 @@ SpriteRenderer:
   m_SortingLayerID: 335083771
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -521816326939231705, guid: 0bf86f642c288a6488980d4128add289,
+  m_Sprite: {fileID: -5697431574750599984, guid: 0bf86f642c288a6488980d4128add289,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

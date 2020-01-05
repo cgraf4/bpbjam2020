@@ -34,15 +34,15 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        InputManager.Instance.OnKeyPressed += UpdateRoundCounter;
-    }
-
-    private void OnDisable()
-    {
-        InputManager.Instance.OnKeyPressed -= UpdateRoundCounter;
-    }
+//    private void OnEnable()
+//    {
+//        InputManager.Instance.OnKeyPressed += UpdateRoundCounter;
+//    }
+//
+//    private void OnDisable()
+//    {
+//        InputManager.Instance.OnKeyPressed -= UpdateRoundCounter;
+//    }
 
     private void UpdateRoundCounter()
     {

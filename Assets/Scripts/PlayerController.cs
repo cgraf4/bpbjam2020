@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -20,6 +21,8 @@ public class PlayerController : MonoBehaviour
     public static event InactiveAction OnInactive;
 
     private float timeLastPressedButton;
+
+    public bool canMove;
     
     private void Start()
     {
@@ -51,6 +54,9 @@ public class PlayerController : MonoBehaviour
 
     private void Move(string key)
     {
+        if (!canMove)
+            return;
+        
         timeLastPressedButton = Time.timeSinceLevelLoad;
 
         _moveRayOrigin = transform.position+new Vector3(.5f, .5f, 0f);
@@ -73,7 +79,6 @@ public class PlayerController : MonoBehaviour
         {
             _moveRayDir = _moveDir = _fireRayDir =  Vector2.right;
             _firstChild.localScale = _initialScale;
-
         }
 
 //        Debug.DrawRay(_moveRayOrigin, _moveRayDir, Color.green);
@@ -90,6 +95,9 @@ public class PlayerController : MonoBehaviour
 
     private void Extinguish()
     {
+        if (!canMove)
+            return;
+        
         timeLastPressedButton = Time.timeSinceLevelLoad;
         
         Vector2 fireRayOrigin = transform.position+new Vector3(.5f, .5f, 0f);

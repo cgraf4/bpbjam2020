@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
     public event StageDownAction OnStageDown;
     public event SpawnFireAction OnFireSpawned;
 
-
     private void Awake()
     {
         if (Instance == null)
@@ -127,7 +126,7 @@ public class GameManager : MonoBehaviour
         _activeFires = 0;
     }
 
-    private void RemovePossibleFirePosition(Vector3 pos)
+    public void RemovePossibleFirePosition(Vector3 pos)
     {
 //        Debug.Log("removed: " + pos);
 
