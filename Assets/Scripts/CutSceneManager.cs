@@ -24,7 +24,7 @@ public class CutSceneManager : MonoBehaviour
 
     public void LetPlayerMove()
     {
-        Debug.Log("let player move");
+//        Debug.Log("let player move");
         _player.canMove = true;
     }
 }

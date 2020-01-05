@@ -52,6 +52,7 @@ public class Fire : MonoBehaviour
     
     public void Decrease()
     {
+        
         _scale = Math.Max(_scale - 1/(GameManager.Instance.GameplaySettings.FireMaxLife/2f), 0);
         _firstChild.localScale = new Vector3(_scale, _scale, 1);
 

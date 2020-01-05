@@ -159,13 +159,13 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator WinGame()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(.5f);
         SceneManager.LoadScene("Win");
     }
 
     public IEnumerator LoseGame()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(.5f);
         SceneManager.LoadScene("Lose");
     }
     

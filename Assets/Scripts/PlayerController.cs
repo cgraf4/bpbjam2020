@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using Random = System.Random;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,11 +24,14 @@ public class PlayerController : MonoBehaviour
     private float timeLastPressedButton;
 
     public bool canMove;
-    
+
+    public AudioClip[] stepSounds;
+    private AudioSource _audio;
     private void Start()
     {
         _firstChild = transform.GetChild(0);
         _initialScale = _firstChild.localScale;
+        _audio = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -85,9 +89,13 @@ public class PlayerController : MonoBehaviour
 
 
         RaycastHit2D hitInfo = Physics2D.Raycast(_moveRayOrigin, _moveRayDir, 1, movementMask);
-        
-        if(hitInfo.collider == null)
+
+        if (hitInfo.collider == null)
+        {
             transform.position += _moveDir;
+            int r = UnityEngine.Random.Range(0, stepSounds.Length - 1);
+            _audio.PlayOneShot(stepSounds[r]);
+        }
 //        else
 //            Debug.Log(hitInfo.transform.name);
         

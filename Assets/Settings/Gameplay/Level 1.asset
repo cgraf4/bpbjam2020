@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   roundsUntilNewFire: 6
-  fireFireMaxLife: 3
+  fireFireMaxLife: 2
   fireUberLife: 10
   flickerInterval: 0.1
-  stages: 02000000050000000a0000000a000000
+  stages: 00000000050000000a0000000a000000
   inactiveInterval: 10

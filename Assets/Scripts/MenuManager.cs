@@ -26,7 +26,7 @@ public class MenuManager : MonoBehaviour
     IEnumerator LoadScene()
     {
         _audio.PlayOneShot(clip);
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(clip.length + .1f);
         SceneManager.LoadScene("Level1");
     }
 }
