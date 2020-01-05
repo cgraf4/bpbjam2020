@@ -41,7 +41,7 @@ public class AudioManager : MonoBehaviour
     
     public void RemoveSource(int stage)
     {
-        Debug.Log("remove");
+//        Debug.Log("remove");
         if (stage < 0)
             return;
         

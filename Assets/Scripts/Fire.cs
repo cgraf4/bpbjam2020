@@ -16,13 +16,15 @@ public class Fire : MonoBehaviour
     private Transform _firstChild;
     private float _scale;
 
-    public LayerMask fireLayerMask;
+    public AudioClip extinguishSound;
 
+    public LayerMask fireLayerMask;
+    public LayerMask levelLayerMask;
+    
     private void Start()
     {
 //        GameManager.Instance.RemovePossibleFirePosition(transform.position);
-        
-        
+
         _firstChild = transform.GetChild(0);
         _scale = 1 / (float) GameManager.Instance.GameplaySettings.FireMaxLife;
         _firstChild.localScale = new Vector3(_scale, _scale, 1);
@@ -36,13 +38,13 @@ public class Fire : MonoBehaviour
     private void OnEnable()
     {
         InputManager.Instance.OnKeyPressed += Increase;
-        PlayerController.OnInactive += TryToSpawnNewFire;
+        InputManager.Instance.OnInactive += TryToSpawnNewFire;
     }
 
     private void OnDisable()
     {
         InputManager.Instance.OnKeyPressed -= Increase;
-        PlayerController.OnInactive -= TryToSpawnNewFire;
+        InputManager.Instance.OnInactive -= TryToSpawnNewFire;
     }
 
     private void Flicker()
@@ -52,13 +54,25 @@ public class Fire : MonoBehaviour
     
     public void Decrease()
     {
-        
+//        Debug.Log("decrease");
+        StartCoroutine(MakeWaterSound());
         _scale = Math.Max(_scale - 1/(GameManager.Instance.GameplaySettings.FireMaxLife/2f), 0);
         _firstChild.localScale = new Vector3(_scale, _scale, 1);
 
         life -= 2;
         if(life <= 0)
             Kill();
+    }
+
+    public IEnumerator MakeWaterSound()
+    {
+        GameObject temp = new GameObject();
+        AudioSource a = temp.AddComponent<AudioSource>();
+        a.loop = false;
+        a.pitch = 2f;
+        a.PlayOneShot(extinguishSound);
+        
+        yield return new WaitForSeconds(extinguishSound.length+.1f);
     }
 
 //    private bool canSpawnNewFire = true;
@@ -84,7 +98,7 @@ public class Fire : MonoBehaviour
     {
 //        Debug.Log("uber in: " +  GameManager.Instance.GameplaySettings.FireUberLife);
 //        yield return new WaitForSeconds(GameManager.Instance.GameplaySettings.FireUberLife);
-        Debug.Log("uber now");
+//        Debug.Log("uber now");
         List<Vector3> emptySpaces = new List<Vector3>();
 
         Collider2D temp;
@@ -161,6 +175,12 @@ public class Fire : MonoBehaviour
 
 //        Debug.DrawRay(origin, dir, Color.blue);
     }
-    
-    
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.layer == levelLayerMask)
+        {
+            Kill();
+        }
+    }
 }

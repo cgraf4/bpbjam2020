@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22abb3eb63e353c4b89b59b8c9348080, type: 3}
   m_Name: Level 2
   m_EditorClassIdentifier: 
-  roundsUntilNewFire: 5
+  roundsUntilNewFire: 6
   fireFireMaxLife: 3
   fireUberLife: 10
   flickerInterval: 0.1
-  stages: 02000000050000000a0000000a000000
+  stages: 00000000050000000a0000000a000000
+  inactiveInterval: 10

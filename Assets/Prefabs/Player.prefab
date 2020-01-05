@@ -205,12 +205,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementMask:
     serializedVersion: 2
-    m_Bits: 1536
+    m_Bits: 512
   fireMask:
     serializedVersion: 2
     m_Bits: 1024
-  canMove: 0
-  stepSounds: []
+  stepSounds:
+  - {fileID: 8300000, guid: e7896dd81a6008b4d8d7e319e0464578, type: 3}
+  - {fileID: 8300000, guid: 43d87ce1ecd6c184890ccea7d6ec31db, type: 3}
+  - {fileID: 8300000, guid: 76f104ad27d06f24c909d8ea5cd82d73, type: 3}
+  - {fileID: 8300000, guid: 260ea6475b3fb9047aa7c6c15f0ef197, type: 3}
+  - {fileID: 8300000, guid: 1be79989373766c4ca14a0c95770ecac, type: 3}
+  - {fileID: 8300000, guid: c50df25d552e44a48898fc057af60c83, type: 3}
+  - {fileID: 8300000, guid: a500840b1d4637e4fafaf86a08780ff9, type: 3}
+  - {fileID: 8300000, guid: c51d54161faf7c54db6f88c1f65d1cc0, type: 3}
+  - {fileID: 8300000, guid: 0535e9a342d1ae442a495fe4058d7716, type: 3}
+  - {fileID: 8300000, guid: 82c5683c7c8a6194c99071a337328906, type: 3}
+  - {fileID: 8300000, guid: 5b72e007a44d5b7418f223f639058440, type: 3}
+  - {fileID: 8300000, guid: 8c41cf674db7afb46b0e32e06368da56, type: 3}
 --- !u!50 &892042130158499168
 Rigidbody2D:
   serializedVersion: 4
@@ -280,7 +291,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -51,11 +51,11 @@ public class GameManager : MonoBehaviour
         InitFirePositions();
     }
 
-//    private void Update()
-//    {
-//        if(Input.GetKeyDown(KeyCode.F))
-//            SpawnFire();
-//    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+            StartCoroutine(WinGame());
+    }
 
     private void OnEnable()
     {
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         InputManager.Instance.OnKeyPressed -= IncreaseRounds;
-        Fire.OnFireKilled += AddFirePossiblePosition;
+        Fire.OnFireKilled -= AddFirePossiblePosition;
 
     }
 
@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
     private void InitFirePositions()
     {
         wallTilemap.CompressBounds();
-
+        
         var cellBounds = wallTilemap.cellBounds;
 
         possibleFirePositions = new List<Vector3>();
@@ -131,6 +131,10 @@ public class GameManager : MonoBehaviour
 //        Debug.Log("removed: " + pos);
 
         possibleFirePositions.Remove(pos);
+
+        currentStage = Mathf.Max(currentStage, 0);
+        Debug.Log("currentstage: " + currentStage);
+        Debug.Log("gameplaySettings.Stages[currentStage]: " + gameplaySettings.Stages[currentStage]);
 //        Debug.Log("active fires:" + _activeFires + " | current stage: " +(currentStage) + " | val: " + gameplaySettings.Stages[currentStage]);
         if (++_activeFires >= gameplaySettings.Stages[currentStage])
         {
@@ -150,6 +154,8 @@ public class GameManager : MonoBehaviour
             StartCoroutine(WinGame());
         }
 
+//        Debug.Log("currentstage: " + currentStage);
+//        Debug.Log("gameplaySettings.Stages[currentStage]: " + gameplaySettings.Stages[currentStage]);
         if (_activeFires <= gameplaySettings.Stages[currentStage] && rounds > 0)
         {
 //            currentStage--;
@@ -159,8 +165,17 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator WinGame()
     {
-        yield return new WaitForSeconds(.5f);
-        SceneManager.LoadScene("Win");
+        Fire[] fires = FindObjectsOfType<Fire>();
+        int f = fires.Length;
+        for (int i = 0; i < f; i++)
+        {
+            Destroy(fires[i].gameObject);
+        }
+        
+        FindObjectOfType<CutSceneManager>().PlayAnimation();
+        FindObjectOfType<InputManager>().canMove = false;
+        yield return new WaitForSeconds(4f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
 
     public IEnumerator LoseGame()

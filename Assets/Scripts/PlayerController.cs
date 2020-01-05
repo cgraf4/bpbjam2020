@@ -17,13 +17,6 @@ public class PlayerController : MonoBehaviour
     private Vector2 _moveRayDir = Vector2.zero;
     private Vector2 _fireRayOrigin = Vector2.zero; 
     private Vector2 _fireRayDir = Vector2.zero;
-    
-    public delegate void InactiveAction();
-    public static event InactiveAction OnInactive;
-
-    private float timeLastPressedButton;
-
-    public bool canMove;
 
     public AudioClip[] stepSounds;
     private AudioSource _audio;
@@ -46,23 +39,8 @@ public class PlayerController : MonoBehaviour
         InputManager.Instance.OnInteractionKeyPressed -= Extinguish;
     }
 
-    private void Update()
-    {
-        if (Time.timeSinceLevelLoad > timeLastPressedButton + GameManager.Instance.GameplaySettings.InactiveInterval)
-        {
-            timeLastPressedButton = Time.timeSinceLevelLoad;
-            Debug.Log("inactive");
-            OnInactive();
-        }
-    }
-
     private void Move(string key)
     {
-        if (!canMove)
-            return;
-        
-        timeLastPressedButton = Time.timeSinceLevelLoad;
-
         _moveRayOrigin = transform.position+new Vector3(.5f, .5f, 0f);
         _moveRayDir = Vector2.zero;
         
@@ -103,11 +81,6 @@ public class PlayerController : MonoBehaviour
 
     private void Extinguish()
     {
-        if (!canMove)
-            return;
-        
-        timeLastPressedButton = Time.timeSinceLevelLoad;
-        
         Vector2 fireRayOrigin = transform.position+new Vector3(.5f, .5f, 0f);
 
 //        LookForFire(rayOrigin, Vector2.down, 1, fireMask);
