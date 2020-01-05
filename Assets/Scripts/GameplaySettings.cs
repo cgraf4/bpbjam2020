@@ -12,6 +12,7 @@ public class GameplaySettings : ScriptableObject
     [SerializeField] private int fireUberLife = 3;
     [SerializeField] private float flickerInterval = .1f;
     [SerializeField] private int[] stages;
+    [SerializeField] private float inactiveInterval = 10;
 
     public int[] Stages => stages;
     public int RoundsUntilNewFire => roundsUntilNewFire;
@@ -21,4 +22,6 @@ public class GameplaySettings : ScriptableObject
     public int FireUberLife => fireUberLife;
 
     public float FlickerInterval => flickerInterval;
+
+    public float InactiveInterval => inactiveInterval;
 }

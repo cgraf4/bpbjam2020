@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = System.Random;
 
 public class Fire : MonoBehaviour
@@ -8,7 +10,7 @@ public class Fire : MonoBehaviour
     public delegate void KillFireAction(Vector3 pos);
     public static event KillFireAction OnFireKilled;
 
-    private int _life = 1;
+    [FormerlySerializedAs("_life")] [SerializeField] private int life = 1;
     private int _uberLife = 1;
     private SpriteRenderer _spriteRenderer;
     private Transform _firstChild;
@@ -31,11 +33,13 @@ public class Fire : MonoBehaviour
     private void OnEnable()
     {
         InputManager.Instance.OnKeyPressed += Increase;
+        PlayerController.OnInactive += TryToSpawnNewFire;
     }
 
     private void OnDisable()
     {
         InputManager.Instance.OnKeyPressed -= Increase;
+        PlayerController.OnInactive -= TryToSpawnNewFire;
     }
 
     private void Flicker()
@@ -48,9 +52,77 @@ public class Fire : MonoBehaviour
         _scale = Math.Max(_scale - 1/(GameManager.Instance.GameplaySettings.FireMaxLife/2f), 0);
         _firstChild.localScale = new Vector3(_scale, _scale, 1);
 
-        _life -= 2;
-        if(_life <= 0)
+        life -= 2;
+        if(life <= 0)
             Kill();
+    }
+
+//    private bool canSpawnNewFire = true;
+//    private void Update()
+//    {
+//        if (canSpawnNewFire == false)
+//            return;
+//        
+//        if (life == GameManager.Instance.GameplaySettings.FireMaxLife && _uberLife < GameManager.Instance.GameplaySettings.FireUberLife)
+//        {
+//            _uberLife++;
+//        }
+//        else if (_uberLife == GameManager.Instance.GameplaySettings.FireUberLife)
+//        {
+//            canSpawnNewFire = false;
+//            StartCoroutine(TryToSpawnNewFire());
+//        }
+//
+////         
+//    }
+
+    private void TryToSpawnNewFire()
+    {
+//        Debug.Log("uber in: " +  GameManager.Instance.GameplaySettings.FireUberLife);
+//        yield return new WaitForSeconds(GameManager.Instance.GameplaySettings.FireUberLife);
+        Debug.Log("uber now");
+        List<Vector3> emptySpaces = new List<Vector3>();
+
+        Collider2D temp;
+
+        if (LookForFire(transform.position, Vector2.down, 1, fireLayerMask) == null)
+        {
+            emptySpaces.Add(transform.position+Vector3.down);
+        }
+        if (LookForFire(transform.position, Vector2.up, 1, fireLayerMask) == null)
+        {
+            emptySpaces.Add(transform.position+Vector3.up);
+        }
+        if (LookForFire(transform.position, Vector2.left, 1, fireLayerMask) == null)
+        {
+            emptySpaces.Add(transform.position+Vector3.left);
+        }
+        if (LookForFire(transform.position, Vector2.right, 1, fireLayerMask) == null)
+        {
+            emptySpaces.Add(transform.position+Vector3.right);
+        }
+
+        bool mustFindPosition = true;
+
+        while (mustFindPosition)
+        {
+            if (emptySpaces.Count == 0)
+                return;
+
+            int r = UnityEngine.Random.Range(0, emptySpaces.Count - 1);
+
+            if (GameManager.Instance.PossibleFirePositions.Contains(emptySpaces[r]))
+            {
+//                    Debug.Log("spawn fire at: " + emptySpaces[r]);
+                GameManager.Instance.SpawnFire(emptySpaces[r]);
+                mustFindPosition = false;
+            }
+            else
+            {
+                emptySpaces.RemoveAt(r);
+            }
+
+        }
     }
     
     public void Increase()
@@ -58,64 +130,17 @@ public class Fire : MonoBehaviour
         _scale = Math.Min(_scale + (1 / (float)GameManager.Instance.GameplaySettings.FireMaxLife), 1);
         _firstChild.localScale = new Vector3(_scale, _scale, 1);
 
-        if (_life < GameManager.Instance.GameplaySettings.FireMaxLife)
+        if (life < GameManager.Instance.GameplaySettings.FireMaxLife)
         {
-            ++_life;
+            ++life;
             _uberLife = 0;
         }
-        else if (_life == GameManager.Instance.GameplaySettings.FireMaxLife && _uberLife < GameManager.Instance.GameplaySettings.FireUberLife)
-        {
-            Debug.Log("max life");
-            _uberLife++;
-        }
-        else if(_uberLife == GameManager.Instance.GameplaySettings.FireUberLife)
-        {
-            Debug.Log("uber");
-            List<Vector3> emptySpaces = new List<Vector3>();
-
-            Collider2D temp;
-
-            if (LookForFire(transform.position, Vector2.down, 1, fireLayerMask) == null)
-            {
-                emptySpaces.Add(transform.position+Vector3.down);
-            }
-            if (LookForFire(transform.position, Vector2.up, 1, fireLayerMask) == null)
-            {
-                emptySpaces.Add(transform.position+Vector3.up);
-            }
-            if (LookForFire(transform.position, Vector2.left, 1, fireLayerMask) == null)
-            {
-                emptySpaces.Add(transform.position+Vector3.left);
-            }
-            if (LookForFire(transform.position, Vector2.right, 1, fireLayerMask) == null)
-            {
-                emptySpaces.Add(transform.position+Vector3.right);
-            }
-
-            bool mustFindPosition = true;
-
-            while (mustFindPosition)
-            {
-                if (emptySpaces.Count == 0)
-                    return;
-
-                int r = UnityEngine.Random.Range(0, emptySpaces.Count - 1);
-                
-                if (GameManager.Instance.PossibleFirePositions.Contains(emptySpaces[r]))
-                {
-                    Debug.Log("spawn fire at: " + emptySpaces[r]);
-                    GameManager.Instance.SpawnFire(emptySpaces[r]);
-                    mustFindPosition = false;
-                }
-                else
-                {
-                    emptySpaces.RemoveAt(r);
-                }
-                    
-            }
-            
-
-        }
+//        else if (life == GameManager.Instance.GameplaySettings.FireMaxLife && _uberLife < GameManager.Instance.GameplaySettings.FireUberLife)
+//        {
+////            Debug.Log("max life");
+//            _uberLife++;
+//        }
+        
     }
 
     private void Kill()
