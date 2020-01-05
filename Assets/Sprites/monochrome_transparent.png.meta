@@ -2464,7 +2464,7 @@ TextureImporter:
     second: monochrome_transparent_819
   - first:
       213: -7233233798793174
-    second: monochrome_transparent_820
+    second: __fragezeichen
   - first:
       213: 2163885210695118081
     second: monochrome_transparent_821
@@ -20438,7 +20438,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: monochrome_transparent_820
+      name: __fragezeichen
       rect:
         serializedVersion: 2
         x: 357

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 public class UIManager : MonoBehaviour
@@ -24,14 +25,14 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        _maxDots = GameManager.Instance.GameplaySettings.RoundsUntilNewFire;
-        _dotImages = new GameObject[_maxDots];
-        
-        for (var i = 0; i < _maxDots; i++)
-        {
-            _dotImages[i] = Instantiate(dotsImagePrefab, dotsLayoutGroup);
-            _dotImages[i].SetActive(false);
-        }
+//        _maxDots = GameManager.Instance.GameplaySettings.RoundsUntilNewFire;
+//        _dotImages = new GameObject[_maxDots];
+//        
+//        for (var i = 0; i < _maxDots; i++)
+//        {
+//            _dotImages[i] = Instantiate(dotsImagePrefab, dotsLayoutGroup);
+//            _dotImages[i].SetActive(false);
+//        }
     }
 
 //    private void OnEnable()
@@ -54,4 +55,31 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private bool gamePaused = false;
+    public GameObject img;
+    private void Update()
+    {
+#if UNITY_STANDALONE
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gamePaused = !gamePaused;
+        }
+
+        if (gamePaused)
+        {
+            img.SetActive(true);
+            Time.timeScale = 0;
+            if(Input.GetKeyUp(KeyCode.Y))
+                Application.Quit();
+            else if (Input.GetKeyDown((KeyCode.N)))
+                gamePaused = false;
+        }
+        else
+        {
+            Time.timeScale = 1;
+            img.SetActive(false);
+
+        }
+#endif
+    }
 }
