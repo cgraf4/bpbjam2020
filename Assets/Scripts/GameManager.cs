@@ -98,6 +98,13 @@ public class GameManager : MonoBehaviour
         Instantiate(firePrefab, spawnPos, Quaternion.identity, transform);
         OnFireSpawned();
     }
+    
+    public void SpawnFire(Vector3 pos)
+    {
+        RemovePossibleFirePosition(pos);
+        Instantiate(firePrefab, pos, Quaternion.identity, transform);
+        OnFireSpawned();
+    }
 
     private void InitFirePositions()
     {
