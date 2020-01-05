@@ -9,6 +9,7 @@ public class Fire : MonoBehaviour
     public static event KillFireAction OnFireKilled;
 
     private int _life = 1;
+    private int _uberLife = 1;
     private SpriteRenderer _spriteRenderer;
     private Transform _firstChild;
     private float _scale;
@@ -18,7 +19,7 @@ public class Fire : MonoBehaviour
     private void Start()
     {
         _firstChild = transform.GetChild(0);
-        _scale = 1 / (float) GameManager.Instance.GameplaySettings.MaxLife;
+        _scale = 1 / (float) GameManager.Instance.GameplaySettings.FireMaxLife;
         _firstChild.localScale = new Vector3(_scale, _scale, 1);
 
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -44,7 +45,7 @@ public class Fire : MonoBehaviour
     
     public void Decrease()
     {
-        _scale = Math.Max(_scale - 1/(GameManager.Instance.GameplaySettings.MaxLife/2f), 0);
+        _scale = Math.Max(_scale - 1/(GameManager.Instance.GameplaySettings.FireMaxLife/2f), 0);
         _firstChild.localScale = new Vector3(_scale, _scale, 1);
 
         _life -= 2;
@@ -54,13 +55,22 @@ public class Fire : MonoBehaviour
     
     public void Increase()
     {
-        _scale = Math.Min(_scale + (1 / (float)GameManager.Instance.GameplaySettings.MaxLife), 1);
+        _scale = Math.Min(_scale + (1 / (float)GameManager.Instance.GameplaySettings.FireMaxLife), 1);
         _firstChild.localScale = new Vector3(_scale, _scale, 1);
-        
-        if (_life < GameManager.Instance.GameplaySettings.MaxLife)
-            ++_life;
-        else
+
+        if (_life < GameManager.Instance.GameplaySettings.FireMaxLife)
         {
+            ++_life;
+            _uberLife = 0;
+        }
+        else if (_life == GameManager.Instance.GameplaySettings.FireMaxLife && _uberLife < GameManager.Instance.GameplaySettings.FireUberLife)
+        {
+            Debug.Log("max life");
+            _uberLife++;
+        }
+        else if(_uberLife == GameManager.Instance.GameplaySettings.FireUberLife)
+        {
+            Debug.Log("uber");
             List<Vector3> emptySpaces = new List<Vector3>();
 
             Collider2D temp;
@@ -82,8 +92,28 @@ public class Fire : MonoBehaviour
                 emptySpaces.Add(transform.position+Vector3.right);
             }
 
-            int r = UnityEngine.Random.Range(0, emptySpaces.Count - 1);
-            GameManager.Instance.SpawnFire(emptySpaces[r]);
+            bool mustFindPosition = true;
+
+            while (mustFindPosition)
+            {
+                if (emptySpaces.Count == 0)
+                    return;
+
+                int r = UnityEngine.Random.Range(0, emptySpaces.Count - 1);
+                
+                if (GameManager.Instance.PossibleFirePositions.Contains(emptySpaces[r]))
+                {
+                    Debug.Log("spawn fire at: " + emptySpaces[r]);
+                    GameManager.Instance.SpawnFire(emptySpaces[r]);
+                    mustFindPosition = false;
+                }
+                else
+                {
+                    emptySpaces.RemoveAt(r);
+                }
+                    
+            }
+            
 
         }
     }

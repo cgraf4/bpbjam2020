@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     public int Rounds => rounds;
     public GameplaySettings GameplaySettings => gameplaySettings;
 
+    public List<Vector3> PossibleFirePositions => possibleFirePositions;
+
     private int _activeFires = 0;
     private PlayerController _player;
     private int currentStage = 0;
